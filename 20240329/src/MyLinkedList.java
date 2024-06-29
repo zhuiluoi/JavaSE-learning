@@ -1,5 +1,5 @@
 // 2、无头双向链表实现
-public class LinkedList {
+public class MyLinkedList {
 
     static class ListNode {
         public int val;
