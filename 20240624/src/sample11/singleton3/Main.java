@@ -1,11 +1,8 @@
-package sample10.shop4;
-
-import java.io.File;
+package sample11.singleton3;
 
 public class Main{
     public static void main(String[] args) {
-        FileLogger fileLogger = FileLogger.getInstance();
-        Shop shop = new Shop(fileLogger);
+        Shop shop = new Shop();
         Seller tocho = new Seller("Yamada", "Tocho");
         Seller coop = new Seller("Yoshida", "Coop");
         Customer taro = new Customer("Taro");

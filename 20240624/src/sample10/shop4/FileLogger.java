@@ -4,10 +4,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileLogger implements Logger{
+public class FileLogger implements Logger {
+    private static final String LOG_FILE_NAME = "log.txt";
+    private static FileLogger instance;
     private final File file;
-    public FileLogger(File file) {
-        this.file = file;
+
+    private FileLogger() {
+        this.file = new File(LOG_FILE_NAME);
+    }
+
+    public static synchronized FileLogger getInstance() {
+        if (instance == null) {
+            instance = new FileLogger();
+        }
+        return instance;
     }
 
     @Override

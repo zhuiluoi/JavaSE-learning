@@ -7,7 +7,7 @@ public class Sort {
         if (start >= end) {
             return;
         }
-        int par = partition(array, start, end);
+        int par = partitionW(array, start, end);
 
         quick(array, start, par-1);
         quick(array, par+1, end);
@@ -32,6 +32,24 @@ public class Sort {
 
     }
 
+    private static int partitionW(int[] array, int left, int right) {
+        int i = left;
+        int j = right;
+        int pivot = array[left];
+        while (i < j) {
+            while (i < j && array[j] >= pivot) {
+                j--;
+            }
+            array[i] = array[j];
+            while (i < j && array[i] <= pivot) {
+                i++;
+            }
+            array[j] = array[i];
+        }
+        array[i] = pivot;
+        return i;
+    }
+
     private static int partition(int[] array, int left, int right) {
         int tmp = array[left];
 
@@ -53,5 +71,50 @@ public class Sort {
         int tmp = array[i];
         array[i] = array[j];
         array[j] = tmp;
+    }
+
+    public static void mergeSort(int[] array) {
+        mergeSortFun(array, 0, array.length-1);
+    }
+
+    private static void mergeSortFun(int[] array, int left, int right) {
+        if (left == right) {
+            return;
+        }
+        int mid = (right + left) / 2;
+        mergeSortFun(array, left, mid);
+        mergeSortFun(array, mid+1, right);
+
+        merge(array, left, mid, right);
+    }
+
+    private static void merge(int[] array, int left, int mid, int right) {
+        int[] tmp = new int[right-left+1];
+        int k = 0;
+        int s1 = left;
+        int e1 = mid;
+        int s2 = mid+1;
+        int e2 = right;
+
+        while (s1<=e1 && s2<=e2) {
+            if (array[s1] <= array[s2]) {
+                tmp[k] = array[s1];
+                k++;
+                s1++;
+            } else {
+                tmp[k] = array[s2];
+                k++;
+                s2++;
+            }
+        }
+        while (s1<=e1) {
+            tmp[k++] = array[s1++];
+        }
+
+        while (s2<=e2) {
+            tmp[k++] = array[s2++];
+        }
+
+        if (k >= 0) System.arraycopy(tmp, 0, array, left, k);
     }
 }
